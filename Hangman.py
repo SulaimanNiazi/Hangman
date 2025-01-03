@@ -1,4 +1,109 @@
 
+def draw(errors):
+    match errors:
+        case 0:
+            print("""
+
+
+
+
+
+
+                  
+""")
+        case 1:
+            print("""
+
+
+
+
+
+._____        
+""")
+        case 2:
+            print("""
+.
+|
+|
+| 
+|
+|_____              
+""")
+        case 3:
+            print("""
+.____
+|
+|
+| 
+|
+|_____              
+""")
+        case 4:
+            print("""
+.____
+|   |
+|
+| 
+|
+|_____                 
+""")
+        case 5:
+            print("""
+.____
+|   |
+|   o
+| 
+|
+|_____              
+""")
+        case 6:
+            print("""
+.____
+|   |
+|   o
+|   | 
+|
+|_____            
+""")
+        case 7:
+            print("""
+.____
+|   |
+|   o
+|  /| 
+|
+|_____            
+""")
+        case 8:
+            print("""
+.____
+|   |
+|   o
+|  /|\ 
+|
+|_____              
+""")
+        case 9:
+            print("""
+.____
+|   |
+|   o
+|  /|\ 
+|  /
+|_____
+                  
+""")
+        case _:
+            print("""
+.____
+|   |
+|   o
+|  /|\ 
+|  / \\
+|_____ 
+You lost!        
+""")
+    return
 def randomWord():
     import requests, random
     x=requests.get('https://randomtextgenerator.com/')
