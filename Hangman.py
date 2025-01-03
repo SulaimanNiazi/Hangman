@@ -138,17 +138,20 @@ def display(progress,mistakes):
         print('Mistakes: ',''.join(map(lambda x:x+' ',mistakes)))
     print(''.join(map(lambda x:x+' ',progress)),'\n')
     return
-def getGuess(progress,mistakes):
+def getGuess(progress,mistakes,word):
     while 1:
         guess=input('Guess a letter: ')
         guess=guess.strip().lower()
-        if guess=='quit': return guess
-        elif len(guess) == 1 and guess not in progress+mistakes:
-            if 123>ord(guess)>96:
-                return guess
+        if guess not in progress:
+            ready=True
+            for letter in list(guess):
+                if ord(letter) not in range(77,123):
+                    ready=False
+                    break
+            if ready: return guess
     #in case of incorrect input:
         display(progress,mistakes)
-        print('\nEnter 1 new alphabet only!\nEnter \'quit\' to give up\n')
+        print('\nEnter 1 new alphabet only!\nOr enter the entire word to win or lose.\n')
 
 def main():
     mistakes=[]
@@ -156,16 +159,20 @@ def main():
     word=randomWord()
     for each in enumerate(word):
         progress.append('_')
-    guess=''
-    while not guess=='quit':
+    while len(mistakes)<10:
         display(progress,mistakes)
         if progress.count('_')==0:
             print("You won!")
             break
-        if len(mistakes)>9:
-            break
-        guess=getGuess(progress,mistakes)
-        if word.__contains__(guess):
+        guess=getGuess(progress,mistakes,word)
+        if len(guess)>1:
+            if guess==word:
+                progress=list(guess)
+            else:
+                clrscr()
+                draw(10)
+                break
+        elif word.__contains__(guess):
             ind=0
             for letter in enumerate(word):
                 if letter[1]==guess:
