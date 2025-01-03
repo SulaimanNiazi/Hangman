@@ -154,18 +154,28 @@ def main():
     mistakes=[]
     progress=[]
     word=randomWord()
-    letters=enumerate(word)
-    for each in letters:
+    for each in enumerate(word):
         progress.append('_')
-    while 1:
+    guess=''
+    while not guess=='quit':
         display(progress,mistakes)
         print(word)
+        if progress.count('_')==0:
+            print("You won!")
+            break
+        if len(mistakes)>9:
+            break
         guess=getGuess(progress,mistakes)
-        if guess=='quit' or len(mistakes)>9:
-            print('\nThe word was: ',word,'\n')
-            return
-        print('You guessed: ',guess)
-        return
+        if word.__contains__(guess):
+            ind=0
+            for letter in enumerate(word):
+                if letter[1]==guess:
+                    progress[ind]=guess
+                ind+=1
+        else:
+            mistakes.append(guess)
+    print('\nThe word was: ',word,'\n')
+    return
 
 if __name__=="__main__":
     clrscr()
