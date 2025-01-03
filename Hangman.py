@@ -138,20 +138,6 @@ def display(progress,mistakes):
         print('Mistakes: ',''.join(map(lambda x:x+' ',mistakes)),'\n')
     print(''.join(map(lambda x:x+' ',progress)),'\n')
     return
-def getGuess(progress,mistakes):
-    while 1:
-        guess=input('Guess a letter: ')
-        guess=guess.strip().lower()
-        if guess not in progress:
-            ready=True
-            for letter in list(guess):
-                if ord(letter) not in range(77,123):
-                    ready=False
-                    break
-            if ready: return guess
-    #in case of incorrect input:
-        display(progress,mistakes)
-        print('\nEnter 1 new alphabet only!\nOr enter the entire word to win or lose.\n')
 
 def main():
     mistakes=[]
@@ -162,22 +148,26 @@ def main():
         if progress.count('_')==0:
             print("You won!")
             break
-        guess=getGuess(progress,mistakes)
-        if len(guess)>1:
-            if guess==word:
-                progress=list(guess)
-            else:
-                clrscr()
-                draw(10)
-                break
-        elif word.__contains__(guess):
-            ind=0
-            for letter in enumerate(word):
-                if letter[1]==guess:
-                    progress[ind]=guess
-                ind+=1
-        else:
-            mistakes.append(guess)
+        guess=input('Guess a letter, or the entire word to win or lose.\nGuess: ').strip().lower()
+        match len(guess):
+            case 0:
+                continue
+            case 1:
+                if word.__contains__(guess):
+                    ind=0
+                    for letter in enumerate(word):
+                        if letter[1]==guess:
+                            progress[ind]=guess
+                        ind+=1
+                else:
+                    mistakes.append(guess)
+            case _:
+                if guess==word:
+                    progress=list(guess)
+                else:
+                    clrscr()
+                    draw(10)
+                    break
     print('\nThe word was: ',word,'\n')
     return
 
