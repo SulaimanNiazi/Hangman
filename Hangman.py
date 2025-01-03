@@ -159,7 +159,6 @@ def main():
     guess=''
     while not guess=='quit':
         display(progress,mistakes)
-        print(word)
         if progress.count('_')==0:
             print("You won!")
             break
