@@ -138,7 +138,7 @@ def display(progress,mistakes):
         print('Mistakes: ',''.join(map(lambda x:x+' ',mistakes)))
     print(''.join(map(lambda x:x+' ',progress)),'\n')
     return
-def getGuess(progress,mistakes,word):
+def getGuess(progress,mistakes):
     while 1:
         guess=input('Guess a letter: ')
         guess=guess.strip().lower()
@@ -164,7 +164,7 @@ def main():
         if progress.count('_')==0:
             print("You won!")
             break
-        guess=getGuess(progress,mistakes,word)
+        guess=getGuess(progress,mistakes)
         if len(guess)>1:
             if guess==word:
                 progress=list(guess)
