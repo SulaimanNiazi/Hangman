@@ -179,4 +179,6 @@ def main():
 
 if __name__=="__main__":
     clrscr()
-    main()
+    while 1:
+        main()
+        if input('Wanna try again? y/n: ')=='n':break
