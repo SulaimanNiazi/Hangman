@@ -135,7 +135,7 @@ def display(progress,mistakes):
     mistakeNum=len(mistakes)
     draw(mistakeNum)
     if mistakeNum>0:
-        print('Mistakes: ',''.join(map(lambda x:x+' ',mistakes)))
+        print('Mistakes: ',''.join(map(lambda x:x+' ',mistakes)),'\n')
     print(''.join(map(lambda x:x+' ',progress)),'\n')
     return
 def getGuess(progress,mistakes):
@@ -155,10 +155,8 @@ def getGuess(progress,mistakes):
 
 def main():
     mistakes=[]
-    progress=[]
     word=randomWord()
-    for each in enumerate(word):
-        progress.append('_')
+    progress=list('_'*len(word))
     while len(mistakes)<10:
         display(progress,mistakes)
         if progress.count('_')==0:
