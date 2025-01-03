@@ -5,6 +5,7 @@ def clrscr():
         system('cls')
     else:
         system('clear')
+    return
 def draw(errors):
     match errors:
         case 0:
@@ -129,15 +130,24 @@ def randomWord():
         elif line.__contains__('div id="randomtext_box"'):
             found=True
     return ''
-def getGuess(forbidden=[]):
+def display(progress,mistakes):
+    clrscr()
+    mistakeNum=len(mistakes)
+    draw(mistakeNum)
+    if mistakeNum>0:
+        print('Mistakes: ',''.join(map(lambda x:x+' ',mistakes)))
+    print(''.join(map(lambda x:x+' ',progress)),'\n')
+    return
+def getGuess(progress,mistakes):
     while 1:
         guess=input('Guess a letter: ')
         guess=guess.strip().lower()
         if guess=='quit': return guess
-        elif len(guess) == 1 and guess not in forbidden:
+        elif len(guess) == 1 and guess not in progress+mistakes:
             if 123>ord(guess)>96:
                 return guess
     #in case of incorrect input:
+        display(progress,mistakes)
         print('\nEnter 1 new alphabet only!\nEnter \'quit\' to give up\n')
 
 def main():
@@ -148,19 +158,11 @@ def main():
     for each in letters:
         progress.append('_')
     while 1:
-        clrscr()
-        mistakeNum=len(mistakes)
-        draw(mistakeNum)
-        if mistakeNum>0:
-            print('Mistakes: ',''.join(map(lambda x:x+' ',mistakes)))
-            if mistakeNum>9:
-                print('\nThe word was: ',word)
-                return
-        print(''.join(map(lambda x:x+' ',progress)),'\n')
+        display(progress,mistakes)
         print(word)
-        guess=getGuess(mistakes+progress)
-        if guess=='quit':
-            print('The word was: ',word)
+        guess=getGuess(progress,mistakes)
+        if guess=='quit' or len(mistakes)>9:
+            print('\nThe word was: ',word,'\n')
             return
         print('You guessed: ',guess)
         return
