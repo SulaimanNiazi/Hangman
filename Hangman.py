@@ -179,6 +179,7 @@ def main():
 
 if __name__=="__main__":
     clrscr()
+    print('Loading...\n')
     while 1:
         main()
-        if input('Wanna try again? y/n: ')=='n':break
+        if not input('Wanna try again? y/n: ')=='y':break
