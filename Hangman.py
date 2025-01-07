@@ -143,10 +143,12 @@ def main():
     mistakes=[]
     word=randomWord()
     progress=list('_'*len(word))
-    while len(mistakes)<10:
+    while 1:
         display(progress,mistakes)
         if progress.count('_')==0:
             print("You won!")
+            break
+        if len(mistakes)>9:
             break
         guess=input('Guess a letter, or the entire word to win or lose.\nGuess: ').strip().lower()
         match len(guess):
